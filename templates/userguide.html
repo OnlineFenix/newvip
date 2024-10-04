@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>USER GUIDE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    body {
+      background-color: #fff;
+      color: #000;
+      scroll-behaviour: smooth;
+    }
+    #backButton {
+      display: flex;
+      height: 2.5em;
+      width: 100px;
+      align-items: center;
+      justify-content: center;
+      background-color: #eee;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      transition: all 0.2s linear;
+      cursor: pointer;
+      border: none;
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+
+    #backButton > svg {
+      margin-right: 5px;
+      margin-left: 5px;
+      font-size: 20px;
+      transition: all 0.4s ease-in;
+    }
+
+    #backButton:hover > svg {
+      font-size: 1.2em;
+      transform: translateX(-5px);
+    }
+
+    #backButton:hover {
+      box-shadow: 4px 4px 5px #d1d1d1, -9px -9px 33px #ffffff;
+      transform: translateY(-2px);
+    }
+    
+    .htsBox {
+      background-color: #fff;
+      padding: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .htsBox2 {
+      background-color: #fff;
+      padding: 15px;
+      box-shadow: 0 0 5px #ddd;
+      border: 0.1px solid #000;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      gap: 2rem;
+    }
+    .htsTitle {
+      margin: 25px 0;
+      font-family: serif;
+      text-decoration: underline;
+      font-size: 22px;
+      text-decoration-thickness: 1px;
+    }
+    .htsTitle2 {
+      font-family: serif;
+      font-size: 20px;
+    }
+    .htsDetail {
+      text-align: left;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.5rem;
+      font-size: 16px;
+      /* font-weight: 600; */
+      color: purple;
+    }
+    .htsHeading {
+      font-family: serif;
+      
+    }
+    .htsPara {
+      text-align: left;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-weight: 200;
+      line-height: 2rem;
+    }
+    
+    /* BACK TO TOP */
+    .button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgb(20, 20, 20);
+      border: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+      cursor: pointer;
+      transition-duration: 0.3s;
+      overflow: hidden;
+      position: relative;
+      margin-top: 50px;
+    }
+
+    .svgIcon {
+      width: 12px;
+      transition-duration: 0.3s;
+    }
+
+    .svgIcon path {
+      fill: white;
+    }
+
+    .button:active {
+      width: 140px;
+      border-radius: 50px;
+      transition-duration: 0.3s;
+      background-color: rgb(181, 160, 255);
+      align-items: center;
+    }
+
+    .button:active .svgIcon {
+      /* width: 20px; */
+      transition-duration: 0.3s;
+      transform: translateY(-200%);
+    }
+
+    .button::before {
+      position: absolute;
+      bottom: -20px;
+      content: "Back to Top";
+      color: white;
+      /* transition-duration: .3s; */
+      font-size: 0px;
+    }
+
+    .button:active::before {
+      font-size: 12px;
+      opacity: 1;
+      bottom: unset;
+      /* transform: translateY(-30px); */
+      transition-duration: 0.3s;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <button id="backButton">
+      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+      <span id="backSpan">Back</span>
+  </button>
+  
+  
+  <div class="htsBox">
+    
+    <h2 class="htsTitle">HOW TO GET ACCESS</h2>
+    
+    <!-- BOX BOX BOX BOX BOX -->
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Account Creation</h4>
+      <p class="htsPara">
+        <b class="htsHeading">Registration : </b>
+      Ye app freely accessible nahi hai aapko is app ka use karne ke liye 'Contact Us' section ke jariye hamse sampark karke account create karwana hoga.
+      </p>
+      <p class="htsPara">
+        <b class="htsHeading">Fill Form : </b>
+      'Contact Us' section me jakar form fill karen is form me aapko Name, Whatsapp number aur ek Message field dikhega, apne Name aur WhatsApp number fill karen aur message me aap bata sakte hai aapko Advance Jantri app ka access chahiye.
+      </p>
+      <p class="htsPara">
+        <b class="htsHeading">Response : </b>
+      Hum aapki request ka response next 2 hours se pahle hi karte par koi technical issue ki wajah se agar thoda time lagta hai to please wait karen hum har ek request ko importance dete hai.
+      </p>
+    </div>
+    <!-- BOX BOX BOX BOX BOX -->
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Logging In</h4>
+      
+      <p class="htsPara">
+        <b class="htsHeading">Login Page : </b>
+      Website ke home page par aapko top right me ek navigation menu dikhega jisme aap last me bane icon pr click karke login page par pahuch sakte hai.
+      </p>
+      
+      <p class="htsPara">
+        <b class="htsHeading">Fill Credentials : </b>
+      Login page me aapko ek Username aur Password field show hoga isme apna account username aur password fill karke aap apne account ko access kar sakte hai aur available features ka use kar sakte hai.
+      </p>
+    </div>
+    
+    
+    <h2 class="htsTitle">HOW TO USE APP</h2>
+    
+    
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Uploading Messages</h4>
+      <h5 class="htsDetail">Is app me aapko 2 input box dikhayi denge aap apne game ke message ko un dono box me enter kar sakte hai aapka message kis type ka hai ye decide karega ki aapko apna game konse box me likhna hai.</h5>
+      
+      <p class="htsPara"><b class="htsHeading">Single Line Message : </b>
+      Agar aapka message sirf ek line me hai, toh seedha type karein aur enter karein.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Multiple Lines Message : </b>
+      Agar aapka message multiple lines me hai, toh har line ko enter se alag karein. Isse system asani se har line ko process kar sakega.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Harup Messages : </b>
+      App apni game me haruf bhi likh sakte hai jo hamari app automatically detect kar legi jise detect karne ke kuch rules hai jo harup detect section me likhe hain.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Crossing Messages : </b>
+      Agar aapki game ek crossing hai jo ki "123456(50)" or "21 22 23 24 25 ...... = 50 into" is type ki hai to apni game ko dusre number ke input box me enter karen.
+      </p>
+    </div>
+    
+    
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Submission and Visualisation</h4>
+      <p class="htsPara"><b class="htsHeading">Submit Messages : </b>
+      Aap apne messages ko input box me likh kar submit button par click kare uske baad data ka process background me hoga par yah itna kam time lega ki aapko submit karne ke baad koi wait nahi karna hoga.
+      </p>
+      
+      <p class="htsPara"><b class="htsHeading">Visualisation : </b>
+      Aap apne message ko submit krne ke baad jo numbers aur harup ki table hai usme apna data dekh sakte hai iske liye aapko koi alag process ki jarurat nahi padegi submit karte hi aapka data table me visible ho jayega.
+      </p>
+      
+      <p class="htsPara"><b class="htsHeading">Understanding : </b>
+      Aap jo message input karenge usme se numbers aur amount ko detect karke jo numbers hai unka amount table me save kar diya jayega agar harup hai to harup ki table me data visible ho jayega.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Quick Results : </b>
+      Aap 'Quick Check' button par click karke aasani se pata kar sakte hai ki konse number ya harup par minimum aur maximum amount save kiya gaya hai aur apne numbers aur harup par total kitna amount save hai.
+      </p>
+    </div>
+      <h2 class="htsTitle">FEATURES AND ADVANTAGES</h2>
+    
+    
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Features</h4>
+      
+      <p class="htsPara"><b class="htsHeading">Numbers and Amount Detection : </b>
+      Aap jo bhi messages input karenge yeh app un messages me numbers aur amount ko detect karega aur table me visible karayega.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Harup Detection : </b>
+      Ye app aapke enter kiye gaye message me se harup ko detect karke unko harup ki alag table me visible karwayega par yaad rahe jab bhi aap koi message enter karen aur usme harup likhe ho to wo harup alag line me hone chahiye aur harup '888ab=50', 'A333(150)' ya '111-666ab=100' is type se likhe hone chahiye.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Crossing Detection : </b>
+      Agar aapki game ek crossing hai to dhyan rahe ki use aap crossing ke input box me hi enter karen ye app aapki crossing me se numbers aur amount ko aasani se detect kar lega isme aap '1234567(100)', '98765=25into' ya '12 13 14 15 16 ... (20 into)' is type ki crossing enter krke table me data save kar sakte hain.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Copy and Share : </b>
+      Aap apni table ko text format me copy kar sakte hai aur kisi bhi social media platform par direct share bhi kar sakte hai jab aap copy button pr click karenge to aapki table aapke clipboard me copy ho jayegi aur share button par click karke aap bina copy kiye direct share bhi kar sakte hain.
+      </p>
+      <p class="htsPara"><b class="htsHeading">Disadvantages : </b>
+      Agar aapke message me signs aur symbols 2 ya usse jyada ek hi jagah pr hai to kosis kare ki aap double signs ko remove karde ye app apni taraf se sare double signs ko delete kar deta hai pr aap agar iska dhyan rakhenge to aapko desired result dekhne ko milega.
+      </p>
+    </div>
+    
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ User Interface</h4>
+      <p class="htsPara"><b class="htsHeading">Intuitive Interface : </b>
+      App ka interface aasan aur user friendly hai. Aap bina kisi technical knowledge ke is app ko aasani se intemal kar sakte hain.
+      </p>
+      
+      <p class="htsPara"><b class="htsHeading">Help Section : </b>
+      Is app ko bahut hi aasan banaya gya aur isko kaise use karna hai sari jankari di gayi hai pr fir bhi aapko koi samsya aati hai ya aap <a href="#">Contact Form</a>ke jariye hamari team se sampark karke uska samadhan le sakte hain.
+      </p>
+    </div>
+    <h2 class="htsTitle">FINALLY</h2>
+    
+    <div class="htsBox2">
+      <h4 class="htsTitle2">➨ Conclusion</h4>
+      <p class="htsPara"><b class="htsHeading">Advance Jantri App : </b>
+      Ye app aapke data ko manage karne ke liye hi banaya gya hai isme possible features dene ki kosis ki gyi hai par iska sudhar aage bhi hota rahega aap sabhi ke feedback aur refrence se ye app abhi tak ki best app ban chuki hai jisme aapko bahut acche features milte hain.
+      </p>
+      
+      <p class="htsPara"><b class="htsHeading">User Guide : </b>
+      Yeh user guide aapko is app ko sahi tarike se use karne aur desired result lene me madad karega, jisse aap apne messages se numbers aur amount ko effectively manage kar sakte hain. Aapka experience humari is app ke sath seamless aur productive rahega. Hum time ke sath is app aur user guide ko update karte rahenge jisse ki aapko naye fetures mil sake aur humari app ke sath aapke experience ko aur behtar banaya ja sake.
+      </p>
+    </div>
+    
+    <!-- BACK_TOP_BUTTON -->
+    <button class="button" onclick="Scroll()">
+      <svg viewBox="0 0 384 512" class="svgIcon">
+        <path
+      d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+    >
+        </path>
+      </svg>
+    </button>
+    <!-- BACK_TOP_BUTTON -->
+  </div>
+  <script>
+  
+    // Go Back Button
+    document.getElementById('backButton').addEventListener('click', ()=> {
+      window.history.back()
+    });
+    
+    // Back To Top Button
+    function Scroll() {
+      window.scrollTo({
+        top : 0,
+        behavior : 'smooth',
+      })
+    };
+  </script>
+</body>
+</html>

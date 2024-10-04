@@ -1,0 +1,193 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Delhi Bazar, Shri Ganesh, Faridabad, Firozabad, Gaziabad, Gali, Desawar Official satta king website all monthly and yearly charts available here.">
+  <meta name="keywords" content="Delhi Bazar, Shri Ganesh, Faridabad, Firozabad, Gaziabad, Gali, Desawar, delhi bazar chart, shri ganesh chart, faridabad chart, firozabad chart, gaziabad chart, gali chart, desawar chart">
+  <meta name="author" content="Satta-King">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Vip-Satta-Result">
+  <meta property="og:description" content="Official Satta-King Website. Don't visit any other website for charts. Visit https://vip-satta-result.in/ .">
+  <meta property="og:url" content="https://www.vip-satta-result.in/">
+  <meta property="og:image" content="https://www.vip-satta-result.in/static/social.png">
+  <meta property="og:image:type" content="image/png">
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
+  
+  <title>
+    {% block title %}
+    Vip-Satta-Result
+    {% endblock %}
+  </title>
+  <link rel="stylesheet" href="{% static 'base.css' %}">
+  {% block style %}
+  {% endblock %}
+</head>
+<body>
+  <header class="header">
+    <h3>
+    <a href="{% url 'home' %}" style="font-family: serif;">VIP-SATTA-RESULT</a>
+    </h3>
+    <nav>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="#">Chart</a></li>
+        <li><img src="{% static 'admin.svg' %}" alt="Admin" onclick="location.href='{% url 'coadmin' %}'"></li>
+      </ul>
+    </nav>
+    <label class="burger" for="burger">
+      <input type="checkbox" id="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </header>
+  <div class="contact-tag">
+    <p>अपनी गेम का रिजल्ट हमारी वेबसाइट पर लगवाने के लिए <a style="color: #00FFFF; text-shadow: 0.3px 0.3px 0 #fee715;" href="{% url 'contact' %}">｢ सम्पर्क ｣</a> करें।</p>
+  </div>
+  
+<!-- #### MAIN SECTION #### -->
+  
+{% block content %}
+
+  
+{% endblock %}
+
+  <!-- MAIN SECTION ENDS -->
+  
+  <footer class="footer">
+    <div class="footer-head">
+      <h2>VIP SATTA RESULT</h2>
+      <h5>Don't visit any fake site.</h5>
+    </div>
+    <marquee>सभी गेम के पुराने रिजल्ट 100% शुद्धता के साथ हमारी वेबसाइट पर तुरंत प्राप्त करें।</marquee>
+    <div class="months-results">
+      <h3>RECORD CHARTS</h3>
+      <div>
+      <h4><a href="{% url 'january2024' %}">JANUARY 2024</a></h4>
+      <h4><a href="{% url 'february2024' %}">FEBRUARY 2024</a></h4>
+      <h4><a href="{% url 'march2024' %}">MARCH 2024</a></h4>
+      <h4><a href="{% url 'april2024' %}">APRIL 2024</a></h4>
+      <h4><a href="{% url 'may2024' %}">MAY 2024</a></h4>
+      <h4><a href="{% url 'june2024' %}">JUNE 2024</a></h4>
+      <h4><a href="{% url 'july2024' %}">JULY 2024</a></h4>
+      <h4><a href="{% url 'august2024' %}">AUGUST 2024</a></h4>
+      <h4><a href="{% url 'september2024' %}">SEPTEMBER 2024</a></h4>
+      <h4><a href="#">OCTOBER 2024</a></h4>
+      <h4><a href="#">NOVEMBER 2024</a></h4>
+      <h4><a href="#">DECEMBER 2024</a></h4>
+      </div>
+    </div>
+    <marquee style="background-color: #101820; color: #fee715; padding: 5px 0;">पिछले वर्षों के चार्ट 100% शुद्धता के साथ उपलब्ध हैं। चार्ट को वेबसाइट पर डालने से पहले दोहरी जांच की गई है, फिर भी यदि कोई त्रुटि रह जाती है तो उसका ध्यान आप स्वयं रखें और हमसे संपर्क करके हमें भी अवगत करें। जिससे कि उस त्रुटि में सुधार किया जा सके। धन्यवाद!</marquee>
+    <div class="years-results">
+      <div class="years-boxes">
+        <h3 class="years-title">✧ 2024 ✧</h3>
+        <div>
+        <h5><a href="">DELHI BAZAR</a></h5>
+        <h5><a href="">SHRI GANESH</a></h5>
+        <h5><a href="">FARIDABAD</a></h5>
+        <h5><a href="">FIROZABAD</a></h5>
+        <h5><a href="">GAZIABAD</a></h5>
+        <h5><a href="">LAXMI BAZAR</a></h5>
+        <h5><a href="">GALI</a></h5>
+        <h5><a href="">DESAWAR</a></h5>
+        </div>
+      </div>
+      <div class="years-boxes">
+        <h3 class="years-title">✧ 2023 ✧</h3>
+        <div>
+        <h5><a href="{% url 'db23' %}">DELHI BAZAR</a></h5>
+        <h5><a href="{% url 'sg23' %}">SHRI GANESH</a></h5>
+        <h5><a href="{% url 'fb23' %}">FARIDABAD</a></h5>
+        <h5><a href="{% url 'fz23' %}"">FIROZABAD</a></h5>
+        <h5><a href="{% url 'gb23' %}">GAZIABAD</a></h5>
+        <h5><a href="{% url 'lb23' %}">LAXMI BAZAR</a></h5>
+        <h5><a href="{% url 'gl23' %}">GALI</a></h5>
+        <h5><a href="{% url 'ds23' %}">DESAWAR</a></h5>
+        </div>
+      </div>
+      <div class="years-boxes">
+        <h3 class="years-title">✧ 2022 ✧</h3>
+        <div>
+        <h5><a href="{% url 'db22' %}">DELHI BAZAR</a></h5>
+        <h5><a href="{% url 'sg22' %}">SHRI GANESH</a></h5>
+        <h5><a href="{% url 'fb22' %}">FARIDABAD</a></h5>
+        <h5><a href="{% url 'fz22' %}">FIROZABAD</a></h5>
+        <h5><a href="{% url 'gb22' %}">GAZIABAD</a></h5>
+        <h5><a href="{% url 'lb22' %}">LAXMI BAZAR</a></h5>
+        <h5><a href="{% url 'gl22' %}">GALI</a></h5>
+        <h5><a href="{% url 'ds22' %}">DESAWAR</a></h5>
+        </div>
+      </div>
+      <div class="years-boxes">
+        <h3 class="years-title">✧ 2021 ✧</h3>
+        <div>
+        <h5><a href="{% url 'db21' %}">DELHI BAZAR</a></h5>
+        <h5><a href="{% url 'sg21' %}">SHRI GANESH</a></h5>
+        <h5><a href="{% url 'fb21' %}">FARIDABAD</a></h5>
+        <h5><a href="{% url 'fz21' %}">FIROZABAD</a></h5>
+        <h5><a href="{% url 'gb21' %}">GAZIABAD</a></h5>
+        <h5><a href="{% url 'lb21' %}">LAXMI BAZAR</a></h5>
+        <h5><a href="{% url 'gl21' %}">GALI</a></h5>
+        <h5><a href="{% url 'ds21' %}">DESAWAR</a></h5>
+        </div>
+      </div>
+      <div class="years-boxes">
+        <h3 class="years-title">✧ 2020 ✧</h3>
+        <div>
+        <h5><a href="{% url 'db20' %}">DELHI BAZAR</a></h5>
+        <h5><a href="{% url 'sg20' %}">SHRI GANESH</a></h5>
+        <h5><a href="{% url 'fb20' %}">FARIDABAD</a></h5>
+        <h5><a href="{% url 'fz20' %}">FIROZABAD</a></h5>
+        <h5><a href="{% url 'gb20' %}">GAZIABAD</a></h5>
+        <h5><a href="{% url 'lb20' %}">LAXMI BAZAR</a></h5>
+        <h5><a href="{% url 'gl20' %}">GALI</a></h5>
+        <h5><a href="{% url 'ds20' %}">DESAWAR</a></h5>
+        </div>
+      </div>
+    </div>
+    <div class="footer-tail">
+      <div class="description">
+        <h3>HOW TO PLAY SATTA KING</h3>
+        <p>How To Play Satta Ladder is a popular game in Pakistan. It is also known as satta Gali and Satta king. This is also known as the ladder of fate. The game was originated in the 16th century from the erstwhile Mughal and Indian cultures. Satta is a game of luck. No player can control the game's destiny, and every player can lose their game as per their luck. The game's object is to eliminate all the number of all cards and then win the game. It is like a domino effect. No matter how many you remove, the game will continue to the next card, and so it goes till the one remaining.</p>
+      </div>
+      <div class="warning">
+        <h3>! WARNING !</h3>
+        <p>यह वेबसाइट सिर्फ और सिर्फ मनोरंजन के लिए बनाई गई है । हमारी साइट सट्टे और उससे जुड़ी किसी भी गतिविधि को बढ़ावा नहीं देती है । जिस किसी शहर, राज्य या देश में सट्टा और जुआ प्रतिबंधित है वे हमारी वेबसाइट को भी तत्काल ही प्रतिबंधित कर दें।</p>
+        <p>किसी भी लाभ या हानि के लिए आप स्वयं ही जिम्मेदार होंगे ।</p>
+      </div>
+      
+      <hr>
+      <div class="developer">
+        <h5>All Rights Reserved  || Sattaking.com</h5>
+      </div>
+      
+    </div>
+    
+    
+    
+    
+  </footer>
+  
+  
+  
+  <script>
+    const menuToggle = document.querySelector('#burger');
+const navUl = document.querySelector('nav ul');
+
+menuToggle.addEventListener('click', () => {
+  navUl.classList.toggle('active');
+});
+
+
+    {% block script %}
+    {% endblock %}
+    
+  </script>
+</body>
+</html>

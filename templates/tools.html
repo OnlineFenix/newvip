@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block title %}Tools{% endblock %}
+
+{% block style %}
+<style>
+   .toollist-box {
+    border: 1px solid #fee715;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  .toollist-title {
+    margin: 10px auto;
+    border-bottom: 1px solid #fee715;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+    font-family: monospace;
+    font-size: 20px;
+  }
+  .unordered-toollist {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    font-family: serif;
+  }
+  .toollist-tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px double #fee715;
+    border-radius: 5px;
+    background-color: #28282B;
+  }
+  .tools {
+    text-decoration: none;
+    color: #fee715;
+  }
+  .infobox {
+    padding: 20px 0;
+    width: 100%;
+  }
+  .infobox-title {
+    font-size: 16px;
+    font-family: monospace;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  .infobox-contact {
+    text-decoration: none;
+    color: #101820;
+    background-color: #fee715;
+    font-size: 12px;
+    padding: 5px 15px;
+    border-radius: 3px;
+    border: 1px double #101820;
+    font-family: serif;
+  }
+  .infobox-contact:hover {
+    box-shadow: 1px 1px 10px #fee715;
+  }
+  
+  
+  /* BUTTON CSS */
+.tooltip-container {
+  --background: #fee715;
+  background: var(--background);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 12px;
+  border-radius: 10px;
+  width: 8em;
+  color: #101820;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  transform: translateX(-50%);
+  padding: 0.3em 0.6em;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  background: var(--background);
+  border-radius: 5px;
+  width: 7em;
+  text-align: center;
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  height: 0.6em;
+  width: 0.6em;
+  bottom: -0.2em;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  background: var(--background);
+}
+
+.tooltip-container:hover .tooltip {
+  top: -100%;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  animation: shake 500ms ease-in-out forwards;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  70% {
+    transform: rotate(3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.text {
+  position: relative;
+  padding: 0.7em 1.8em;
+  overflow: hidden;
+}
+
+.text::before {
+  content: "↗";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: inherit;
+  background-color: var(--background);
+  transition: 0.3s;
+  border-radius: 15px;
+}
+
+.tooltip-container:hover .text::before {
+  top: 0;
+}
+
+    
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="toollist-box">
+    <h4 style="color: #fee715;" class="toollist-title">
+      𖠪 VIP SATTA RESULT 𖠪
+    </h4>
+    <ul class="unordered-toollist">
+      <!-- LUCKY FIND -->
+      <li class="toollist-tools">
+        <a href="#" class="tools">➢ LUCKY FIND</a>
+         <div class="tooltip-container">
+           <span class="tooltip">Loading...</span>
+           <span class="text">Free</span>
+         </div>
+      </li>
+      <!-- CROSSER -->
+      <li class="toollist-tools">
+        <a href="#" class="tools">➢ CROSSER</a>
+        <div class="tooltip-container">
+          <span class="tooltip">Loading...</span>
+          <span class="text">Free</span>
+        </div>
+      </li>
+      <!-- SATTA JANTRI -->
+      <li class="toollist-tools">
+        <a href="#" class="tools">➢ JANTRI MAKER</a>
+        <div class="tooltip-container">
+          <span class="tooltip">Contact Us</span>
+          <span class="text">Paid!</span>
+        </div>
+      </li>
+      <!-- AUTO RESULT -->
+      <li class="toollist-tools">
+        <a href="#" class="tools">➢ AUTO RESULT</a>
+        <div class="tooltip-container">
+          <span class="tooltip">Contact Us</span>
+          <span class="text">Paid!</span>
+        </div>
+      </li>
+    </ul>
+    <div class="infobox">
+      <h3 class="infobox-title" style="color: #fee715;">GET ACCESS OF ALL TOOLS</h3>
+      <a href="#" class="infobox-contact">Click Here</a>
+    </div>
+  </div>
+{% endblock %}

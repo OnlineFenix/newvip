@@ -1,0 +1,471 @@
+{% extends "base.html" %}
+
+{% block title %}
+Vip-Satta-Result
+{% endblock %}
+
+{% block style %}
+<style>
+  @keyframes blink {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+      filter: opacity(0.1);
+    }
+    100% {
+      box-shadow: 0 0 0.1em 0.1em #fff;
+      filter: opacity(1);
+    }
+  }
+  @keyframes shadow {
+    0% {
+      text-shadow: none;
+    }
+    100% {
+      text-shadow: 0 0 2px red;
+    }
+  }
+  
+  .tags-for-games {
+    font-size: 8px;
+    position: relative;
+    background-color: #198754;
+    width: min-content;
+    height: min-content;
+    border-radius: 2px;
+    color: #ffffff;
+    padding: 2px;
+    border: 0.5px solid #000;
+    text-shadow: 0 0 0.5px #fff;
+    top: 50%;
+    right: 15%;
+    animation: blink 0.5s alternate infinite;
+  }
+  #new-number {
+    color: #fee715;
+    animation: shadow 0.5s alternate-reverse infinite;
+  }
+
+  @media (max-width: 768px) {
+  .home-results-games {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+      }
+  .home-results-games ul {
+    border-left: 1px ridge #fee715;
+    padding-left: 12px;
+  }
+  .home-name-time {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding-left: 10px;
+  }
+  .home-game-time {
+    margin: 0;
+    padding: 0;
+    margin-top: 15px;
+  }
+ }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- CURRENT TIME -->
+  <h3 id="time" style="text-align: center; color: #fee715; font-family: serif; margin: 5px auto;"></h3>
+  <!-- CURRENT TIME ENDS -->
+
+  <main class="home-box">
+    <!-- NEW RESULT TODAY -->
+   
+   <div class="home-new-result">
+     <h4>LIVE RESULT</h4>
+     <div class="home-new-rbox">
+     {% for results in new_results %}
+       <div>
+     <h2>{{ results.game_name }}</h2>
+     <h2><span class="new-popup">NEW</span>[ <span id="new-number">{{ results.result }}</span> ]<span class="new-popup">NEW</span></h2>
+       </div>
+       
+     {% endfor %}
+     </div>
+   </div>
+   
+   <!-- RESULT SECTION WARNING -->
+    
+    <div class="home-desc">
+      
+      <h4 class="home-desc-title" style="background-color: #101820; width: 100%; padding: 10px; color: #fee715;">—— सावधान ——</h4>
+      
+      <p>कृपया ध्यान दें हमारा कोई भी यूट्यूब चैनल, टेलीग्राम चैनल या फिर व्हाट्सप्प ग्रुप आदि नही है इसलिए अगर कोई भी आपको हमारा नाम लेकर लीक गेम देने की बात कहे तो समझ जाइए आपके साथ फ्रॉड हो रहा है ऐसे व्यक्ति से कोई पैसे का लेनदेन न करे बल्कि ऐसे हरा*खोरों से ज्यादा से ज्यादा बात करके उनका समय खराब करे ताकि वह आपके साथ इतने व्यस्त रहे की दूसरे लोगों को मूर्ख बनाने के लिए उनके पास समय ही न बचे आप सतर्क होंगे तो इनकी दुकाने खुद उजड़ जाएंगी।<br>-धन्यवाद</p>
+    </div>
+    
+    <!-- TODAY RESULTS BOX -->
+    
+    <div class="home-results">
+      <h3>Today Live Results</h3>
+      <div class="home-results-box">
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">DELHI BAZAR</p>
+          <p class="home-game-time">[03:05PM]</p>
+          </div>
+          <ul>
+            {% for db_results in db_results %}
+            <li>{{ db_results }}</li>
+            
+            {% endfor %}
+            {% for db in db_tag %}
+   <span class="tags-for-games">{{db.tag}}</span>
+{% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">SHRI GANESH</p>
+          <p class="home-game-time">[04:35PM]</p>
+          </div>
+          <ul>
+            {% for sg_results in sg_results %}
+            <li>{{ sg_results }}</li>
+            {% endfor %}
+            {% for sg in sg_tag %}
+   <span class="tags-for-games">{{sg.tag}}</span>
+{% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">FARIDABAD</p>
+          <p class="home-game-time">[06:00PM]</p>
+          </div>
+          <ul>
+            {% for fb_results in fb_results %}
+            <li>{{ fb_results }}</li>
+            {% endfor %}
+            {% for fb in fb_tag %}
+   <span class="tags-for-games">{{fb.tag}}</span>
+{% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">FIROZABAD</p>
+          <p class="home-game-time">[07:45PM]</p>
+          </div>
+          <ul>
+            {% for fz_results in fz_results %}
+            <li>{{ fz_results }}</li>
+            {% endfor %}
+            {% for fz in fz_tag %}
+            <span class="tags-for-games">{{ fz.tag }}</span>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">GAZIABAD</p>
+          <p class="home-game-time">[08:45PM]</p>
+          </div>
+          <ul>
+            {% for gb_results in gb_results %}
+            <li>{{ gb_results }}</li>
+            {% endfor %}
+            {% for gb in gb_tag %}
+            <span class="tags-for-games">{{ gb.tag }}</span>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">LAXMI BAZAR</p>
+          <p class="home-game-time">[10:15PM]</p>
+          </div>
+          <ul>
+            {% for lb_results in lb_results %}
+            <li>{{ lb_results }}</li>
+            {% endfor %}
+            {% for lb in lb_tag %}
+            <span class="tags-for-games">{{ lb.tag }}</span>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">GALI</p>
+          <p class="home-game-time">[11:45PM]</p>
+          </div>
+          <ul>
+            {% for gl_results in gl_results %}
+            <li>{{ gl_results }}</li>
+            {% endfor %}
+            {% for gl in gl_tag %}
+            <span class="tags-for-games">{{ gl.tag }}</span>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="home-results-games">
+          <div class="home-name-time">
+          <p class="home-game-name">DESAWAR</p>
+          <p class="home-game-time">[05:15AM]</p>
+          </div>
+          <ul>
+            {% for ds_results in ds_results %}
+            <li>{{ ds_results }}</li>
+            {% endfor %}
+            {% for ds in ds_tag %}
+            <span class="tags-for-games">{{ ds.tag }}</span>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CHART -->
+    
+    <div class="home-monthly-chart-box">
+      
+      <div>
+        <h2>RECORD CHART</h2>
+        <h4>OCTOBER 2024</h4>
+      </div>
+      
+        <table>
+          <tbody>
+            <tr>
+              <th>Date</th>
+              <th>DB</th>
+              <th>SG</th>
+              <th>FB</th>
+              <th>FZ</th>
+              <th>GB</th>
+              <th>LB</th>
+              <th>GL</th>
+              <th>DS</th>
+            </tr>
+            <tr>
+              <td>01-OCT</td>
+              {% for day_1 in month_1 %}
+              <td>{{ day_1 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>02-OCT</td>
+              {% for day_2 in month_2 %}
+              <td>{{ day_2 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>03-OCT</td>
+              {% for day_3 in month_3 %}
+              <td>{{ day_3 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>04-OCT</td>
+              {% for day_4 in month_4 %}
+              <td>{{ day_4 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>05-OCT</td>
+              {% for day_5 in month_5 %}
+              <td>{{ day_5 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>06-OCT</td>
+              {% for day_6 in month_6 %}
+              <td>{{ day_6 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>07-OCT</td>
+              {% for day_7 in month_7 %}
+              <td>{{ day_7 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>08-OCT</td>
+              {% for day_8 in month_8 %}
+              <td>{{ day_8 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>09-OCT</td>
+              {% for day_9 in month_9 %}
+              <td>{{ day_9 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>10-OCT</td>
+              {% for day_10 in month_10 %}
+              <td>{{ day_10 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>11-OCT</td>
+              {% for day_11 in month_11 %}
+              <td>{{ day_11 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>12-OCT</td>
+              {% for day_12 in month_12 %}
+              <td>{{ day_12 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>13-OCT</td>
+              {% for day_13 in month_13 %}
+              <td>{{ day_13 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>14-OCT</td>
+              {% for day_14 in month_14 %}
+              <td>{{ day_14 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>15-OCT</td>
+              {% for day_15 in month_15 %}
+              <td>{{ day_15 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>16-OCT</td>
+              {% for day_16 in month_16 %}
+              <td>{{ day_16 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>17-OCT</td>
+              {% for day_17 in month_17 %}
+              <td>{{ day_17 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>18-OCT</td>
+              {% for day_18 in month_18 %}
+              <td>{{ day_18 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>19-OCT</td>
+              {% for day_19 in month_19 %}
+              <td>{{ day_19 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>20-OCT</td>
+              {% for day_20 in month_20 %}
+              <td>{{ day_20 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>21-OCT</td>
+              {% for day_21 in month_21 %}
+              <td>{{ day_21 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>22-OCT</td>
+              {% for day_22 in month_22 %}
+              <td>{{ day_22 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>23-OCT</td>
+              {% for day_23 in month_23 %}
+              <td>{{ day_23 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>24-OCT</td>
+              {% for day_24 in month_24 %}
+              <td>{{ day_24 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>25-OCT</td>
+              {% for day_25 in month_25 %}
+              <td>{{ day_25 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>26-OCT</td>
+              {% for day_26 in month_26 %}
+              <td>{{ day_26 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>27-OCT</td>
+              {% for day_27 in month_27 %}
+              <td>{{ day_27 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>28-OCT</td>
+              {% for day_28 in month_28 %}
+              <td>{{ day_28 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>29-OCT</td>
+              {% for day_29 in month_29 %}
+              <td>{{ day_29 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>30-OCT</td>
+              {% for day_30 in month_30 %}
+              <td>{{ day_30 }}</td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <td>31-OCT</td>
+              {% for day_31 in month_31 %}
+              <td>{{ day_31 }}</td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      
+    </div>
+    
+    
+    
+  </main>
+
+{% endblock %}
+
+
+{% block script %}
+
+// UPDATE TIME
+    function updateTime() {
+            const timeElement = document.getElementById('time');
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+
+            // 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 should be 12
+
+            // Add leading zeros to hours, minutes, and seconds if less than 10
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            timeElement.innerHTML = timeString;
+        }
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+        updateTime(); // Initial call to display time immediately
+{% endblock %}

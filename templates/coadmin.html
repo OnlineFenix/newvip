@@ -1,0 +1,1683 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block style %}
+<style>
+  /* Global Styles */
+    @keyframes shareAction {
+      0%,100% {
+        background-color: #fff;
+        color: goldenrod;
+      }
+      50% {
+        background-color: goldenrod;
+        color: #fff;
+      }
+    }
+  @keyframes inOut {
+    0%,100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    
+  }
+    .shareButton {
+      background-color: #fff;
+      color: goldenrod;
+      font-weight: 300;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 5px 20px;
+      border-radius: 20px;
+      width: 82.5px;
+      border: 0.5px solid goldenrod;
+    }
+    .shareButton:active {
+      animation: shareAction .3s ease-in-out normal;
+      box-shadow: 0 0 5px goldenrod;
+    }
+    
+  .status-alert {
+    border: 0.5px solid #000000;
+    background-color: #fff;
+    color: #000000;
+    padding: 10px 15px;
+    margin: 10px 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .status-alert h5 {
+    font-weight: 300;
+  }
+  .status-alert span:hover {
+    cursor: pointer;
+    filter: opacity(0.8);
+  }
+  .ok-button {
+    padding: 2px 4px;
+    border-radius: 1px;
+    font-family: monospace;
+    font-weight: 200;
+    font-size: 8px;
+    text-transform: uppercase;
+    background-color: #fff;
+    color: #000;
+    transition: background-color 0.3s;
+    border: 0.2px solid black;
+    margin-bottom: 15px;
+  }
+  
+  .ok-button:hover {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  }
+/* Staff Section Styles */
+
+.staff-section {
+  max-width: 800px;
+  margin: 2px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.staff-section h1 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+.staff-section h1 span#staff-username {
+  font-weight: normal;
+  color: #337ab7;
+  border-bottom: 1px solid #337ab7;
+}
+
+.staff-section .staff-btn-dashboard {
+  text-decoration: none;
+  color: #337ab7;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #fff;
+  cursor: pointer;
+  border: 0.5px solid #337ab7;
+  margin-left: 4em;
+}
+
+.staff-section .staff-btn-dashboard:hover {
+  background-color: #337ab7;
+  color: #fff;
+}
+
+.staff-section #staff-user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.staff-section #staff-user-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.staff-section #staff-user-list li:last-child {
+  border-bottom: none;
+}
+
+.staff-section .staff-user-info {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+  gap: 5px;
+}
+
+.staff-section .staff-username {
+  font-weight: bold;
+  color: #337ab7;
+  font-family: serif;
+}
+
+.staff-section .staff-last-active {
+  color: #666;
+}
+
+.staff-section .staff-superuser {
+  font-weight: bold;
+  color: #337ab7;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+  
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .staff-section {
+    padding: 15px;
+  }
+  .staff-section h1 {
+    font-size: 20px;
+  }
+  .staff-section .staff-btn-dashboard {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  .staff-section #staff-user-list li {
+    padding: 8px;
+  }
+  .staff-section .staff-user-info {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .staff-section .staff-username, .staff-section .staff-last-active, .staff-section .staff-superuser {
+    margin-right: 0;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .staff-section {
+    padding: 10px;
+  }
+  .staff-section h1 {
+    font-size: 18px;
+  }
+  .staff-section .staff-btn-dashboard {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .staff-section #staff-user-list li {
+    padding: 6px;
+  }
+    }
+  
+     .contact-form-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      border-bottom: 1px double #101820;
+      border-radius: 5px;
+      color: #222;
+      padding: 20px 10px;
+      margin: 10px 0;
+      
+    }
+    .contact-form-info-title {
+      border-bottom: 1px solid #222;
+      font-family: 'Couriers New', Courier, monospace;
+      margin-bottom: 25px;
+      font-style: normal;
+    }
+    .contact-form-persons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      width: 100%;
+      padding: 5px;
+    }
+    .contact-form-person {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      border: 1px solid #222;
+      border-radius: 2px;
+      gap: 5px;
+      padding: 10px 0;
+      padding-left: 10px;
+      margin-bottom: 10px;
+      background-color: #fff;
+      color: #222;
+      width: 100%;
+      font-style: normal;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.8s;
+    }
+    .contact-form-person:hover {
+      transform: scale(1.05);
+    }
+    .person-whatsapp {
+      font-size: 10px;
+      margin: 5px 0;
+      padding: 2px 0;
+      font-style: normal;
+        }
+    .person-message {
+      padding: 2px 0;
+      text-wrap: wrap;
+      over-flow: auto;
+      font-style: normal;
+    }
+
+    .wa-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      pasding: 0;
+      padding-top: 30px;
+      margin: 20px 0px;
+      background-color: #fff;
+      border-radius: 5px;
+      color: #222;
+      text-shadow: 1px 1px 1px #000;
+    }
+    .wa-box-title {
+      border-bottom: 2px solid #222;
+      padding-bottom: 10px;
+      color: #222;
+      background-color: #fff;
+      text-shadow: 0.5px 0.5px 0px #330000;
+    }
+    .wa-box-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: center;
+      width: 100%;
+      gap: 1px;
+      background-color: #fff;
+      color: #222;
+    }
+    .wa-button-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      color: #222;
+      font-weight: 200;
+      padding: 5px;
+      text-align: center;
+      background-color: #fefefe;
+      text-shadow: 0.5px 0.5px 0px #330000;
+    }
+    .wa-box-button {
+      padding: 10px 35px;
+      margin: 10px auto;
+      background-color: #fff;
+      border: 0.8px outset #337ab7;
+      width: fit-content;
+      border-radius: 20px;
+      color: #337ab7;
+      font-weight: 300;
+      text-shadow: 1px 1px 1px #ddd;
+    }
+    .wa-box-button:hover {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+      font-weight: 400;
+    }
+    .wa-area-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      width: 100%;
+      padding: 20px 0;
+      color: #337ab7;
+      font-size: 18px;
+    }
+    .user-info {
+      background-color: #fff;
+      border: 2px double #101820;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 20px 0;
+      color: #222;
+      text-shadow: 0.5px 0.5px 0px #330000;
+      text-align: left;
+    }
+    .user-info-title {
+      text-align: center;
+      margin-bottom: 10px;
+      border-bottom: 2px ridge #222;
+      padding-bottom: 15px;
+      font-family: serif;
+      color: #337ab7;
+    }
+    .user-info-subtitle {
+      text-align: left;
+      margin-bottom: 5px;
+      color: #222;
+      font-weight: 300;
+    }
+    .user-info-subtitle i:first-child {
+      display: grid;
+      grid-template-columns: 2fr 4fr;
+      margin-left: 5px;
+    }
+    .user-info-subtitle i b {
+      text-align: left;
+    }
+    .user-info-subtitle i i {
+      text-align: left;
+      font-family: serif;
+    }
+    .user-info-button {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 5px;
+      padding: 15px 0;
+      border-top: 2px ridge #222;
+      
+    }
+    .user-info-button a {
+      border: 1px outset #101820;
+      width: fit-content;
+      margin: auto;
+      padding: 5px 30px;
+      border-radius: 2px;
+      font-family: serif;
+      color: #fafafb;
+      background-color: #375E97;
+    }
+    .user-info-button a:first-child {
+      background-color: #FFA4A1;
+      font-size: 16px;
+      color: #222;
+    }
+    .user-info-button a:hover {
+      box-shadow: 0px 0px 5px #337ab7;
+      background-color: #101820;
+      color: #fafafb;
+    }
+  
+  @media (max-width: 768px) {
+    .contact-form-persons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  .chart-buttons {
+    color: #337ab7;
+    font-size: 14px;
+    border: 0.6px solid #337ab7;
+    border-radius: 10px;
+    font-weight: 200;
+    width: fit-content;
+    padding: 5px 10px;
+    margin: auto;
+    box-shadow: 1px 1px 1px #337ab7;
+    margin-top: 15px;
+    transition: all 0.2s linear;
+    background-color: #fff;"
+  }
+  .chart-buttons:active {
+    box-shadow: 1px 1px 5px green;
+    color: green;
+    border: 0.6px solid green;
+  }
+  .popup {
+            position: fixed;
+            top: -40px;
+            left: 50%;
+            width: 90%;
+            max-width: 400px;
+            transform: translateX(-50%);
+            background-color: ghostwhite;
+            padding: 10px;
+            border: 0.7px solid #337ab7;
+            text-align: center;
+            border-radius: 2px;
+            text-shadow: 0.2px 0.2px 0px #337ab7;
+            box-shadow: 0 0 1px black;
+            z-index: 10;
+            transition: top 0.2s ease-in-out;
+            font-family: monospace;
+  }
+.cardX {
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.headerX {
+  padding: 1.25rem 1rem 1rem 1rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FEE2E2;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+}
+
+.image svg {
+  color: #DC2626;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.content {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.titleX {
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.messageX {
+  margin-top: 0.5rem;
+  color: #6B7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.actions {
+  margin: .75rem 1rem;
+  margin-top: 2rem;
+  background-color: #F9FAFB;
+}
+
+.desactivate {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  background-color: #101820;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  justify-content: center;
+  width: 100%;
+  border-radius: 0.375rem;
+  border-width: 1px;
+  border-color: transparent;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all .7s ease-in-out;
+}
+
+.desactivate:hover {
+  background-color: #ccc;
+  color: #101820;
+}
+
+.cancel {
+  transition: all .7s ease-in-out;
+  display: inline-flex;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  justify-content: center;
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .cancel:hover {
+    background-color: #E2E8F0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="container">
+  <div class="user-info">
+     <h1>
+        𖡷
+     </h1>
+
+     <h2 class="user-info-title">
+       <i>{{ user.username }}</i>
+     </h2>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Name:</b><i style="color: #337ab7;">{{ user.first_name }} {{ user.last_name }}</</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Email:</b><i style="color: #337ab7;">{{ user.email }}</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Password:</b><i style="color: #337ab7;">H̶i̶d̶d̶e̶n̶</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Active:</b><i style="color: #337ab7;">{{ user.is_active }}</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Staff:</b><i style="color: #337ab7;">{{ user.is_staff }}</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Super User:</b><i style="color: #337ab7;">{{ user.is_superuser }}</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Last Login:</b><i style="color: #337ab7;">{{ user.last_login }}</i></i>
+    </h4>
+    <h4 class="user-info-subtitle">
+       <i><b>➡ Date Joined:</b><i style="color: #337ab7;">{{ user.date_joined }}</i></i>
+    </h4>
+    <div class="user-info-button">
+       <a href="{% url 'logout' %}">Logout</a>
+       <a href="{% url 'home' %}">Home</a>
+    </div>
+    <div class="user-info-owner">
+       <h5 class="user-info-title">
+          <i>👑 Powered by: FENIX 👑</i>
+       </h5>
+    </div>
+  </div>
+  {% if user.is_active %}
+    <div style="background-color: #eee; border: 2px double #007bff; border-radius: 5px; padding: 10px; margin: 10px 20px; color: #222; text-shadow: 0.5px 0.5px 0px #330000; text-align: left; animation: inOut 1s ease-in-out infinite; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+     <a href="{% url 'jantri' %}" style="color: #007bff; font-family: serif; font-weight: 300; font-size: 18px; margin: 10px auto; border-bottom: 1px solid #007bff; padding-bottom: 5px;">MAKE SATTA JANTRI</a>
+    </div>
+  {% endif %}
+</div>
+  {% if user.is_staff %}
+  
+  <section class="staff-section">
+  <h1>Welcome, <span id="staff-username">{{ user.username }}</span> <a href="../admin/" class="staff-btn-dashboard">Dashboard</a></h1>
+    
+    <i id="status-x">
+       Don't touch anything without a<br />Super User permission.
+      <br />
+      <button class="ok-button" id="status-button-x">OK</button>
+    </i>
+    <hr />
+    
+    <h1 style="margin-top: 15px; font-family: serif; font-size: 14px;">
+      Users, Staff Members, and Super Users
+    </h1>
+    <hr />
+    
+  <ul id="staff-user-list" class="staff-list-unstyled">
+    <!-- Add more list items for each user -->
+    {% for list_user in user_list %}
+    <li>
+      <div class="staff-user-info">
+        <span class="staff-username">{{ list_user.username }}</span>
+        <span class="staff-last-active">{{ list_user.last_login }}</span>
+        <span class="staff-superuser">{% if list_user.is_staff %}Staff Member{% if list_user.is_superuser %} | Super User{% endif %}{% else %}User{% endif %}</span>
+        {% if not user.is_superuser %}
+        {% if not list_user.is_superuser %}
+        <a href="{% url 'user_edit' list_user.id %}" style="background-color: #fff; color: red; padding: 1px 20px; margin: 0; border: 0.6px solid red; border-radius: 2px; font-size: 10px; font-weight: 300; width: fit-content;">Edit</a>
+        {% else %}
+        <span style="font-size: 8px; color: red; margin: 5px 0;">
+          Super Users can't be delete or update by this panel.
+        </span>
+        {% endif %}
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  </section>
+
+
+  
+    <div class="row" style="text-transform: uppercase; font-family: serif; font-size: 14px; background-color: #ffffff; color: #000; padding: 5px; text-align: center; border-radius: 10px;">
+      <form method='POST' style="margin: 0; width: 100%; display: flex; justify-content: center; align-items: start; padding: 40px 20px; gap: 20px; flex-direction: column; color: #000; background-color: #fff; border-radius: 10px; padding-left: 4em; border: 1px ridge red;">
+        <h2 style="border-bottom: 0.8px solid #000; margin-bottom: 10px; padding-bottom: 5px; color: #000;">Result Update</h2>
+
+      {% csrf_token %}
+      {{ form.as_p }}
+        <button type="submit" style="background-color: #fff; color: green; padding: 10px 30px; margin: 8px 1em; border: 0.8px solid green; cursor: pointer; width: fit-content; border-radius: 4px; font-family: serif;">Upload</button>
+      </form>
+    </div>
+  <div class="row" style="text-transform: uppercase; font-family: serif; font-size: 14px; background-color: #ffffff; color: #000; padding: 5px; text-align: center; border-radius: 10px;">
+    <form method='POST' style="margin: 0; width: 100%; display: flex; justify-content: center; align-items: start; padding: 40px 20px; gap: 20px; flex-direction: column; color: #000; background-color: #fff; border-radius: 10px; padding-left: 4em; color: #000; border: 1px ridge red;">
+       <h2 style="border-bottom: 0.8px solid #000; margin-bottom: 10px; padding-bottom: 5px; color: #000;">Custom Tags</h2>
+      {% csrf_token %}
+      {{ tag_form.as_p }}
+        <button type="submit" style="background-color: #fff; color: green; padding: 10px 30px; margin: 8px 1em; border: 0.8px solid green; cursor: pointer; width: fit-content; border-radius: 2px; font-family: serif;">Update</button>
+      <h5 style="color: #ff0000; background-color: #fff; border-radius: 2px; padding: 10px 20px; border: 0.8px solid red; margin-left: 1em;" onclick="location.href='{% url 'delete_alltags' %}'">DELETE TAGS</h5>
+       
+  </div>
+  
+    <!-- WHATSAPP SECTION -->
+  <div class="wa-box">
+    <div class="wa-box-title">
+      <h3>Whatsapp Results</h3>
+    </div>
+    <div class="wa-box-content">
+      <h5 class="wa-button-label" style="text-align: left;">
+        {% for wa_result in wa_result %}🐦‍🔥 𝐋𝐈𝐕𝐄 𝐑𝐄𝐒𝐔𝐋𝐓 🐦‍🔥<br />
+<br />
+<p style="margin: 0; padding: 0;"><span id="wa-live-name">{{ wa_result.game_name }}</span> ===>[[<span id="wa-live-game">{{ wa_result.result }}</span>]]</p><br />
+<br />
+<b id="result-date-id">Date....</b>
+========•✠•========<br />
+सबसे फास्ट रिजल्ट यहां देखें।<br />
+https://vip-satta-result.in<br />
+https://vip-satta-result.in<br />
+__________________________<br />
+अपने सभी सट्टा ग्रुप में शेयर करें।{% endfor %}
+        
+      </h5>
+      <h5 class="wa-button-label" style="padding: 0 1.9rem;">
+        <span id="wa-today-game">*𝐀𝐋𝐋 𝐆𝐀𝐌𝐄𝐒 𝐑𝐄𝐒𝐔𝐋𝐓*
+
+*🎯दिल्ली बाजार          👉[{{ db_last }}]✔️*
+*🎯श्री गणेश                👉[{{ sg_last }}]✔️*
+*🎯फरीदाबाद              👉[{{ fb_last }}]✔️*
+*🎯फिरोजाबाद            👉[{{ fz_last }}]✔️*
+*🎯गाजियाबाद            👉[{{ gb_last }}]✔️*
+*🎯लक्ष्मी बाजार          👉[{{ lb_last }}]✔️*
+*🎯गली चोर                👉[{{ gl_last }}]✔️*
+*🎯दिसावर                 👉[{{ ds_last }}]✔️*
+
+*https://vip-satta-result.in*
+*https://vip-satta-result.in*</span>
+      </h5>
+      <h4 class="wa-box-button popupButton" id="current-result-copy">Copy Result</h4>
+      <h4 class="wa-box-button popupButton" id="today-result-copy">Copy Result</h4>
+      <p class="shareButton" style="margin: 15px auto; text-shadow: none;" id="resultOneShare">Share</p>
+      <p class="shareButton" style="margin: 15px auto; text-shadow: none;" id="resultTwoShare">Share</p>
+    </div>
+  </div>
+<!-- CHARTS SECTION -->
+
+<div style="display: flex; flex-direction: column; padding-bottom: 10px; align-items: center; justify-content: center; margin-bottom: 10px; width: 100%; margin-top: 10px; background-color: #fff; color: #222; font-size: 16px; padding: 20px 10px; gap: 25px;">
+  <h3 style="font-family: serif; border-bottom: 0.5px solid #222;">
+     MONTHLY CHARTS
+  </h3>
+  
+  <div style="border-bottom: 0.5px solid #222; width: 100%; padding-bottom: 10px;">
+     <h5 style="color: green; font-weight: 400; margin-bottom: 10px;">
+        CHART 1
+     </h5>
+     <ul id="monthly-chart-first" style="background-color: #efefef; border: 0.5px solid green; list-style: none; width: fit-content; padding: 20px; border-radius: 5px; display: flex; flex-direction: column; margin: auto; text-align: left; font-size: 10px;">
+        {% for data in chart_data %}
+        <li style="text-align: left;">{{ data }}</li>
+        {% endfor %}
+     </ul>
+     
+     <p id="copy-chart-first" class="chart-buttons popupButton">
+        COPY CHART
+     </p>
+   <p class="shareButton" style="margin: 10px auto;" id="shareChartOne">Share</p>
+     
+  </div>
+  <div style="border-bottom: 0.5px solid #222; width: 100%; padding-bottom: 10px;">
+     <h5 style="color: green; font-weight: 400; margin-bottom: 10px;">
+        CHART 2
+     </h5>
+
+    <ul id="monthly-chart-second" style="background-color: #efefef; border: 0.5px solid green; list-style: none; width: fit-content; padding: 20px; border-radius: 5px; display: flex; flex-direction: column; margin: auto; text-align: left; font-size: 10px;">
+        {% for new_data in newData %}
+        <li style="text-align: left;">{{ new_data }}</li>
+        {% endfor %}
+    </ul>
+     <p class="chart-buttons popupButton" id="copy-chart-second">
+        COPY CHART
+     </p>
+    <p class="shareButton" style="margin: 10px auto;" id="shareChartTwo">Share</p>
+     
+  </div>
+  
+</div>
+
+  <!-- NOTICE CENTER -->
+  
+    <div style="width: 100%; padding: 20px 10px; background-color: #fff; display: flex; flex-direction: column; padding-bottom: 0;">
+      <h3 style="font-family: serif; border-bottom: 0.5px solid #222; margin: 0 auto; width: fit-content; margin-bottom: 25px;">
+         SHORT NOTES
+      </h3>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        GAMES SCHEDULE
+     </h5>
+     <p id="gamesSchedule" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteOne">Share</p>
+    </div>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        TIME NOTICE
+     </h5>
+     <p id="timeNotice" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteTwo">Share</p>
+    </div>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        FIROZABAD NOTE
+     </h5>
+     <p id="fzNote" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteThree">Share</p>
+    </div>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        LAXMI BAZAR NOTE
+     </h5>
+     <p id="lbNote" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteFour">Share</p>
+    </div>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        RULES LIST
+     </h5>
+     <p id="rulesList" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteFive">Share</p>
+    </div>
+    <div style="border-top: 0.5px solid #222; width: 100%; margin-bottom: 7px; background-color: #fff; display: grid; grid-template-columns: 2fr 1fr 1fr; justify-content: center; align-items: center; padding: 10px 0;">
+     <h5 style="color: #000; font-weight: 400;">
+        WEBSITE LINK
+     </h5>
+     <p id="websiteLink" class="chart-buttons popupButton" style="margin: 0;">
+        COPY
+     </p>
+     <p class="shareButton" style="margin: auto;" id="shareNoteSix">Share</p>
+    </div>
+     
+    </div>
+  
+<!-- CHARTS SECTION -->
+<div style="background-color: #fff; border: 2px double #101820; border-radius: 5px; color: #222; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <h3 style="font-weight: 300; border-bottom: 2px ridge #222; padding: 10px auto; font-family: serif; margin: 15px auto;">Recent Results</h3>
+   <ul style="list-style: none; padding: 5px 10px; margin: 0; background-color: #fff; border-radius: 5px; color: #000; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 2px; font-size: 14px;">
+     {% for game_result in last_updated_results %}
+      <li style="border-top: 1px solid #ccc; padding: 5px; width: 100%; display: flex; flex-direction: row; justify-content: start; align-items: center; margin-bottom: 5px;">
+        <span style="color: green; font-size: 8px;">{{ game_result.timestamp }}</span>
+        <span style="color: #222; margin-left: 5px; width: 100%;">{{ game_result.game_name }} - {{ game_result.result }}</span>
+        {% if user.is_superuser %}
+        <span style="color: #337ab7; font-size: 8px; display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
+        <a href="{% url 'edit_results' game_result.id %}" style="background-color: #fff; color: #337ab7; padding: 2px 5px; margin: 0; border: 1px solid #337ab7; border-radius: 4px; font-size: 10px; font-weight: 300;">Edit</a>
+        <a href="{% url 'delete_results' game_result.id %}" style="background-color: #fff; color: red; padding: 2px 5px; margin: 0; border: 1px solid red; border-radius: 4px; font-size: 10px; font-weight: 300;">Delete</a>
+        </span>
+        {% endif %}
+      </li>
+     {% endfor %}
+   </ul>
+   {% if not user.is_superuser %}
+   <h5 style="color: red; background-color: #fff; border-radius: 2px; padding: 10px 20px; border: 0.8px solid red;">Only Superusers have permission to delete or edit recent results.</h5>
+   {% endif %}
+</div>
+
+  <!-- Result Section Not editable -->
+  <section style="background-color: #fff; border: 2px double #101820; border-radius: 5px; color: #222; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+    <h3 style="font-weight: 300; border-bottom: 2px ridge #222; padding: 10px auto; font-family: serif; margin: 15px auto;">
+       Activity Logs
+    </h3>
+    
+    <ul style="list-style: none; padding: 0; margin: 0; background-color: #fff; border-radius: 5px; color: #000; width: 100%;">
+      {% for lastAction in last_actions %}
+      <li style="border-top: 1px solid #ccc; padding: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; font-size: 12px; width: 100%;">
+        
+        <span style="color: #198754;"><span style="color: #222;">{{ lastAction.object_repr }}</span> {% if lastAction.action_flag == 1 %}Added{% elif lastAction.action_flag == 2 %}Changed{% else %}Deleted{% endif %} by <span style="color: #337ab7;">{{ lastAction.user }}</span></span>
+        
+        <span>{{ lastAction.action_time }}</span>
+        
+        
+        <span style="color: red;">{{ lastAction.content_type }}</span>
+        
+      </li>
+      {% endfor %}
+    </ul>
+    
+  </section>
+  
+  {% if user.is_superuser %}
+  <!-- CONTACTS FORM DEATAILS -->
+  
+    <div class="contact-form-info">
+    <h3 class="contact-form-info-title">Contact Form Details</h3>
+    <div class="contact-form-persons">
+      {% for contact in contacts %}
+    <div class="contact-form-person">
+      <h4 class="person-name">Name : <code>{{ contact.name }}</code></h4>
+      <h4 class="person-whatsapp">Number : <code>{{ contact.whatsapp }}</code></h4>
+      <h6 class="person-message">Message : <code>{{ contact.message }}</code></h6>
+    </div>
+      {% endfor %}
+    </div>
+<br /><br />
+    <h3 class="contact-form-info-title">Advance Jantri Feedback</h3>
+    <div class="contact-form-persons">
+      {% for feedback in feedbacks %}
+    <div class="contact-form-person">
+      <h4 class="person-name">Name : <code>{{ feedback.username }}</code></h4>
+      <h6 class="person-message" style="text-align: left; line-height: 1.5;">Message : <code>{{ feedback.feedback }}</code></h6>
+    </div>
+      {% endfor %}
+    </div>
+    </div>
+<!-- DELETE & UPDATE USERS -->
+  <div style="background-color: #fff; color: #000; padding: 0; text-align: center; border-radius: 10px;">
+    <h3 style="border-bottom: 1px solid #000; padding: 15px 0; margin-bottom: 10px; font-family: serif;">Users List</h3>
+      <a href="{% url 'adduser' %}" style="background-color: #fff; color: #4caf50; padding: 5px 20px; margin: 8px 1em; border: 1px solid #4caf50; border-radius: 15px;">Add Users</a>
+    <ul>
+          {% for list_user in user_list %}
+    <li>
+      <div style="background-color: #fff; width: 100%; display: flex; flex-direction: column; align-items: start; padding: 10px 0; padding-left: 15px; border-bottom: 1px solid #222; gap: 5px;">
+        <span style="color: #337ab7;">{{ list_user.username }}</span>
+        <span style="color: #000; margin: 4px 0;">{{ list_user.last_login }}</span>
+        <span style="color: #337ab7;">{% if list_user.is_staff %}Staff Member{% if list_user.is_superuser %} | Super User{% endif %}{% else %}User{% endif %}</span>
+        {% if not list_user.is_superuser %}
+        <span style="margin-top: 10px;">
+          <a href="{% url 'user_edit' list_user.id %}" style="background-color: #fff; color: #337ab7; padding: 5px 10px; margin: 8px 2px; border: 1px solid #337ab7; border-radius: 15px;">Update User</a>
+          <a href="{% url 'user_delete' list_user.id %}" style="background-color: #fff; color: red; padding: 5px 10px; margin: 8px 2px; border: 1px solid red; border-radius: 15px;">Delete User</a>
+        </span>
+        {% else %}
+        <span style="font-size: 8px; color: red; margin: 5px 0;">
+          Super Users can't be delete or update by this panel.
+        </span>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+    </ul>
+  </div>
+  
+  {% else %}
+  <div class="status-alert" id="alert-for-hide">
+     <h5>
+     <i style="color: green; text-decoration: underline;">Secured </i>You are not a Super User!
+     </h5>
+    <span id="alert-hide">×</span>
+  </div>
+  {% endif %}
+  {% else %}
+
+  <div class="status-alert" id="alert-for-hide-2">
+     <h5>
+     <i style="color: green; text-decoration: underline;">Secured </i>You are not a Staff Member!
+     </h5>
+    <span id="alert-hide-2">×</span>
+  </div>
+  <div class="status-alert" id="alert-for-hide">
+     <h5>
+     <i style="color: green; text-decoration: underline;">Secured </i>You are not a Super User!
+     </h5>
+    <span id="alert-hide">×</span>
+  </div>
+  {% endif %}
+
+
+      <div class="wa-area-box">
+      Whatsapp Posts
+        <span id="refreshIcon" style="background-color: #fff; color: #007bff; font-style: normal; font-size: 16px; text-decoration: none; font-weight: 300; transition: all .5s ease; margin: 5px; padding: auto auto; border: 0.5px solid #007bff; height: 4rem; width: 4rem; text-align: center; line-height: 4rem; border-radius: 50%;">Refresh</span>
+    </div>
+  <div class="popup" id="popup">Text copied!</div>
+    <div class="wa-box-title">
+      <h3 id="wa-post-name">{{ wa_post_title }}</h3>
+    </div>
+    <div class="wa-box-content">
+      <h4 class="wa-box-button popupButton" id="post-1">POST 1</h4>
+      <h4 class="wa-box-button popupButton" id="post-2">POST 2</h4>
+      <h4 class="wa-box-button popupButton" id="post-3">POST 3</h4>
+      <h4 class="wa-box-button popupButton" id="post-4">POST 4</h4>
+      {% if user.is_staff %}
+      <h4 class="wa-box-button popupButton" id="post-5">POST 5</h4>
+      <h4 class="wa-box-button popupButton" id="post-6">POST 6</h4>
+      <h4 class="wa-box-button popupButton" id="post-7">POST 7</h4>
+      <h4 class="wa-box-button popupButton" id="post-8">POST 8</h4>
+      <h4 class="wa-box-button popupButton" id="post-9">POST 9</h4>
+      <h4 class="wa-box-button popupButton" id="post-10">POST 10</h4>
+      {% endif %}
+    </div>
+{% else %}
+<div style="padding: auto; width: 100vw; height: 100%; display: flex; justify-content: center; align-items: center; margin: 20px 0;">
+<div class="cardX">
+  <div class="headerX">
+    <div class="image"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+              </svg></div>
+    <div class="content">
+       <span class="titleX">Login Required</span>
+       <p class="messageX">Oops! something went wrong.</p>
+       <p class="messageX">This page requires a user authentication please login with your username and password to access view.</p>
+    </div>
+     <div class="actions">
+       <button class="desactivate" type="button" onclick="window.location.href='{% url 'login' %}'">Already have an account.</button>
+       <button class="cancel" type="button" onclick="window.location.href='{% url 'home' %}'">Back</button>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+
+{% block script %}
+  
+  let gameName = document.getElementById('wa-live-name');
+  if (!gameName) {
+  }
+  else {
+    gameName = gameName.innerText;
+  }
+  let gameResult = document.getElementById('wa-live-game');
+  if (!gameResult) {
+  }
+  else {
+    gameResult = gameResult.innerText;
+  }
+  
+  
+  const d = new Date();
+  const date = d.getDate();
+  const month = d.toLocaleString("default", { month: "short" });
+  const year = d.getFullYear();
+  
+  let month_digit = d.getMonth() + 1;
+  
+  if (month_digit < 10) {
+    month_digit = "0" + month_digit;
+};
+    // (Tue-24-Sep-2024)
+    const today = d.toDateString().split(" ").join("-");
+    
+    // (Date-24/09/2024)
+    const today1 = `Date-${date}/${month_digit}/${year}`;
+    
+    // (Date:24-09-2024)
+    const today3 = `DATE:${date}-${month_digit}-${year}`;
+    
+    // (DATE_24_SEP_2024))
+    const monthsList = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const today5 = `DATE_${date}_${monthsList[d.getMonth()]}_${year}`;
+
+    // (DATE_24-SEP-2024)
+    const today6 = `DATE_${date}-${monthsList[d.getMonth()]}-${year}`;
+
+    // (🇩ATE_24-SEP-2024)
+    const today7 = `🇩ATE- ${date}-${monthsList[d.getMonth()]}-${year}`;
+
+    // (Date:- 24-09-2024)
+    const today9 = `Date:- ${date}-${month_digit}-${year}`;
+    
+    
+    const resultDateView = document.getElementById('result-date-id');
+    if (!resultDateView) {
+    }
+    else {
+      resultDateView.innerHTML = today;
+    }
+    
+    const copyResult =`*🐦‍🔥 𝐋𝐈𝐕𝐄 𝐑𝐄𝐒𝐔𝐋𝐓 🐦‍🔥*
+
+
+*${gameName} ===>[[${gameResult}]]*
+
+
+*${today}*
+*========•✠•========*
+*सबसे फास्ट रिजल्ट यहां देखें।*
+*https://vip-satta-result.in*
+*https://vip-satta-result.in*
+*__________________________*
+*अपने सभी सट्टा ग्रुप में शेयर करें।*`;
+    
+    
+    const numberList = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99']
+
+    // Name converter
+  function toTitleCase(str) {
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(function(word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+};
+
+    function getRandomNumbers(count) {
+    if (count > numberList.length) {
+        throw new Error('Request exceeds the number of available unique numbers');
+    }
+    const shuffled = numberList.slice().sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+    const postOne = getRandomNumbers(6);
+    const postTwo = getRandomNumbers(1);
+    const postThree = getRandomNumbers(6);
+    const postFour = getRandomNumbers(14);
+    const postFive = getRandomNumbers(6);
+    const postSix = getRandomNumbers(1);
+    const postSeven = getRandomNumbers(3);
+    const postEight = getRandomNumbers(1);
+    const postNine = getRandomNumbers(4);
+    const postTen = getRandomNumbers(1);
+
+    
+  function getHarup() {
+    const randomNumber = Math.floor(Math.random() * 10);
+    return randomNumber.toString();
+};
+    const harupOne = getHarup();
+    const harupTwo = getHarup();
+    const harupThree = getHarup();
+    const harupFour = getHarup();
+    const harupFive = getHarup();
+    const harupSix = getHarup();
+    const harupSeven = getHarup();
+    const harupEight = getHarup();
+    const harupNine = getHarup();
+    const harupTen = getHarup();
+
+    const waPostName1 = document.getElementById('wa-post-name').innerHTML;
+    const waPostName2 = toTitleCase(waPostName1);
+
+    function getCrossing() {
+    let list = [];
+    while (list.length < 6) {
+      const randomNumber = Math.floor(Math.random() * 10);
+      if (!list.includes(randomNumber)){
+        list.push(randomNumber);
+      }
+    }
+      let str = list.join('');
+      return str;
+};
+
+      const crossingTwo = getCrossing();
+      const crossingSix = getCrossing();
+      const crossingSeven = getCrossing();
+      const crossingTen = getCrossing();
+    
+    const POST_ONE = `*${waPostName2}* 
+
+
+*${today1}*
+
+
+*SINGLE JoDi :- ${postOne[0]}🔥*
+
+
+*SPOT :- ${postOne[1]}.${postOne[2]}.${postOne[3]}.${postOne[4]}.${postOne[5]}*
+
+*HARUF :- ${harupOne}${harupOne}${harupOne}${harupOne}${harupOne}AB*
+
+
+
+*GROUP KHAIWAL💕*`
+    
+    document.getElementById('post-1').addEventListener('click', ()=> {
+      navigator.clipboard.writeText(POST_ONE);
+    navigator.vibrate(100);
+    });
+    
+    const POST_TWO = `*➲ ${waPostName1}*
+
+*➲ SINGLE (${postTwo[0]})*
+
+*➲CROSING (${crossingTwo})*
+
+*➲ HEMANT KUMAR*
+
+*➲ PLAY ON GROUP KHAIWAL*
+
+🙏🙏🙏🙏🙏🙏🙏🙏🙏`
+
+      document.getElementById('post-2').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_TWO);
+    navigator.vibrate(100);
+      });
+
+      const POST_THREE = `*___❤️${waPostName1}❤️___*
+
+  *---SINGLE✔️[[${postThree[0]}]]---*
+
+   *[[${postThree[1]}]]---[[${postThree[2]}]]*
+    
+   *[[${postThree[3]}]]---[[${postThree[4]}]]---[[${postThree[5]}]]*
+
+    *HARUFF---[[ ${harupThree}${harupThree}${harupThree} ]]🆎*
+
+       *${today3}*
+
+*PLAY ON GROUP KHAIWAL*`
+
+      document.getElementById('post-3').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_THREE);
+    navigator.vibrate(100);
+      });
+
+      const POST_FOUR = `${waPostName2}
+      
+Main  ${postFour[0]}, ${postFour[1]}, ${postFour[2]} 😘
+
+
+${postFour[3]}, ${postFour[4]}, ${postFour[5]}, ${postFour[6]}, ${postFour[7]}, ${postFour[8]} ✅
+
+Leek ${postFour[9]}, ${postFour[10]}, ${postFour[11]}, ${postFour[12]}, ${postFour[13]} 😡
+
+Fixxx___🔥
+
+✅✅✅✅✅✅✅✅`
+
+      document.getElementById('post-4').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_FOUR);
+    navigator.vibrate(100);
+      });
+
+      const POST_FIVE = `[${waPostName1}]
+      
+Single__(${postFive[0]})__
+
+SPOT _(${postFive[1]})(${postFive[2]})(${postFive[3]})(${postFive[4]})(${postFive[5]})
+
+HRUP__A[${harupFive}${harupFive}${harupFive}]B
+
+___PLAY BY GROUP KHAIWAL
+
+-------------
+${today5}`
+
+  {% if user.is_staff %}
+  document.getElementById('post-5').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_FIVE);
+    navigator.vibrate(100);
+      });
+
+      const POST_SIX = `*#${waPostName1}___  ${postSix[0]}*
+
+      
+*#CROSS __${crossingSix}__*
+
+POST BY UNKNOWN👍
+PLAY ONLINE GROUP KHAIWAL
+${today6}`
+
+      document.getElementById('post-6').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_SIX);
+    navigator.vibrate(100);
+      });
+
+      function changeName(name) {
+        if (name === 'DELHI BAZAR') {
+          return '🇩ELHI 🇧AZAR'
+        }
+        else if (name === 'SHRI GANESH') {
+          return '🇸HRI 🇬ANESH'
+        }
+        else if (name === 'FARIDABAD') {
+          return '🇫ARIDABAD'
+        }
+        else if (name === 'FIROZABAD') {
+          return '🇫IROZABAD'
+        }
+        else if (name === 'GAZIABAD') {
+          return '🇬AZIABAD'
+        }
+        else if (name === 'GALI') {
+          return '🇬ALI'
+        }
+        else if (name === 'LAXMI BAZAR') {
+          return '🇱AXMI 🇧AZAR'
+        }
+        else if (name === 'DESAWAR') {
+          return '🇩ESAWAR'
+        }
+      };
+
+    const postSevenName = changeName(waPostName1);
+
+    const POST_SEVEN = `꧁ ${postSevenName} ꧂
+✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
+
+🇸‌INGLE      ﴾${postSeven[0]}﴿
+
+
+
+🇨ROSSING   ﴾${crossingSeven}﴿
+
+
+🇽‌TRAA    ﴾${postSeven[1]}﴿  ﴾${postSeven[2]}﴿
+
+✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏
+
+🇴‌NLY 🇬‌ROUP 🇰‌HAIWAL
+
+${today7}`
+
+      document.getElementById('post-7').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_SEVEN);
+    navigator.vibrate(100);
+      });
+
+    const postEightLines = ['01 02 03 04 05 06 07 08 09', '11 12 13 14 15 16 17 18 19', '21 22 23 24 25 26 27 28 29', '31 32 33 34 35 36 37 38 39', '41 42 43 44 45 46 47 48 49', '51 52 53 54 55 56 57 58 59', '61 62 63 64 65 66 67 68 69', '71 72 73 74 75 76 77 78 79', '81 82 83 84 85 86 87 88 89', '91 92 93 94 95 96 97 98 99', '10 20 30 40 50 60 70 80 90', '11 21 31 41 51 61 71 81 91', '12 22 32 42 52 62 72 82 92', '13 23 33 43 53 63 73 83 93', '14 24 34 44 54 64 74 84 94', '15 25 35 45 55 65 75 85 95', '16 26 36 46 56 66 76 86 96', '17 27 37 47 57 67 77 87 97', '18 28 38 48 58 68 78 88 98', '19 29 39 49 59 69 79 89 99'];
+      
+    function getLines() {
+      let lines = [];
+      while (lines.length <= 4 ) {
+        let randomNumber = Math.floor(Math.random() * 20);
+        if (!lines.includes(randomNumber)) {
+          lines.push(postEightLines[randomNumber]);
+        }
+      }
+      return lines;
+    };
+
+    const postEightNumbers = getLines();
+
+    const POST_EIGHT = `_*⚠️${waPostName2}⚠️*_
+
+
+*⚠️Single ==>  [[${postEight[0]}]]*
+
+
+*${postEightNumbers[0]}*
+*${postEightNumbers[1]}*
+*${postEightNumbers[2]}*
+*${postEightNumbers[3]}*
+
+
+_Play On Group Khaiwal_
+_https://vip-satta-result.in_`
+
+      document.getElementById('post-8').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_EIGHT);
+    navigator.vibrate(100);
+      });
+
+    function postNineNames(name) {
+      if (name === 'DELHI BAZAR') {
+        return 'दिल्ली बाजार'
+      }
+      else if (name === 'SHRI GANESH') {
+        return 'श्री गणेश'
+      }
+      else if (name === 'FARIDABAD') {
+        return 'फ़रीदाबाद'
+      }
+      else if (name === 'FIROZABAD') {
+        return 'फ़िरोज़ाबाद'
+      }
+      else if (name === 'GAZIABAD') {
+        return 'गाजियाबाद'
+      }
+      else if (name === 'GALI') {
+        return 'गली'
+      }
+      else if (name === 'LAXMI BAZAR') {
+        return 'लक्ष्मी बाजार'
+      }
+      else if (name === 'DESAWAR') {
+        return 'दिशावर'
+      }
+    };
+    function getJodiInto() {
+      let jodiInto = [150, 200, 300, 400, 500, 600];
+      let randomNumber = Math.floor(Math.random() * 6);
+      return jodiInto[randomNumber];
+    };
+
+    const postNineName = postNineNames(waPostName1);
+    const postNineJodiInto = getJodiInto();
+        const postNinePalatInto = postNineJodiInto / 2;
+        const postNineHarupInto = postNineJodiInto * 2 + postNinePalatInto;
+
+    const POST_NINE = `*🛕 ${postNineName} 🛕*
+
+
+
+*${postNine[0]}//${postNine[1]}//${postNine[2]}//${postNine[3]}=(${postNineJodiInto}×)*
+
+         *पलट=(${postNinePalatInto}×)*
+
+
+
+*${harupNine}${harupNine}${harupNine}${harupNine}${harupNine}${harupNine}🆎=(${postNineHarupInto}×)*
+
+
+🤯🤯🤯🤯🤯🤯🤯
+*${today9}*
+
+*ग्रुप खाईवाल के पास प्ले करें।*`
+
+      document.getElementById('post-9').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_NINE);
+    navigator.vibrate(100);
+      });
+
+    const POST_TEN = `✪〔 ${waPostName2} 〕✪
+
+
+
+↳ Single      〈${postTen[0]}〉
+
+↳ Harup      〈A ${harupTen}${harupTen}${harupTen} B〉
+
+↳ Crossing 〈${crossingTen}〉
+
+🪶🪶🪶🪶🪶🪶🪶🪶
+⤙Play Online Games⤚
+ ⤙GROUP KHAIWAL⤚`
+
+    document.getElementById('post-10').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(POST_TEN);
+    navigator.vibrate(100);
+      });
+
+    {% endif %}
+        
+
+    const buttons = document.querySelectorAll(".popupButton");
+        const popup = document.getElementById("popup");
+        buttons.forEach((button) => {
+            button.addEventListener("click", function() {
+                popup.style.top = "10px";
+                setTimeout(function() {
+                    popup.style.top = "-40px";
+                }, 700);
+            });
+        });
+
+
+
+    {% if user.is_staff %}
+        document.getElementById('current-result-copy').addEventListener('click', ()=>{
+    navigator.clipboard.writeText(copyResult);
+navigator.vibrate(100);
+});
+    const todayResult = document.getElementById('wa-today-game');
+    const copyBtnToday = document.getElementById('today-result-copy');
+    copyBtnToday.addEventListener('click', ()=> {
+    navigator.clipboard.writeText(todayResult.textContent);
+    navigator.vibrate(100);
+  });
+
+    document.getElementById('copy-chart-first').addEventListener('click', ()=> {
+    const copyChart = document.getElementById('monthly-chart-first').innerText;
+    navigator.clipboard.writeText(copyChart);
+    navigator.vibrate(100);
+    });
+
+    document.getElementById('copy-chart-second').addEventListener('click', ()=> {
+    const copyChart2 = document.getElementById('monthly-chart-second').innerText;
+    navigator.clipboard.writeText(copyChart2);
+    navigator.vibrate(100);
+    });
+
+    const gamesSchedule = `____
+🍁ALL GAME
+🍁LAST TIMING
+
+
+➛ DB  03:00PM [ दिल्ली बाजार ]
+➛ SG  04:30PM [ श्री गणेश ]
+➛ FB  05:45PM [ फरीदाबाद ]
+➛ FZ  07:45PM [ फिरोजाबाद ]
+➛ GB  08:45PM [ गाजियाबाद ]
+➛ LB  09:45PM [ लक्ष्मी बाजार ]
+➛ GL  11:45PM [ गली ]
+➛ DS  04:00AM [ दिसावर ]
+___
+
+https://vip-satta-result.in
+https://vip-satta-result.in`
+
+    document.getElementById('gamesSchedule').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(gamesSchedule);
+    navigator.vibrate(100);
+    });
+
+    function getLastTime(name) {
+        if (name === 'DELHI BAZAR') {
+            return '03:00PM'
+        }
+        else if (name === 'SHRI GANESH') {
+            return '04:30PM'
+        }
+        else if (name === 'FARIDABAD') {
+            return '05:45PM'
+        }
+        else if (name === 'FIROZABAD') {
+            return '07:45PM'
+        }
+        else if (name === 'GAZIABAD') {
+            return '08:45PM'
+        }
+        else if (name === 'LAXMI BAZAR') {
+            return '09:45PM'
+        }
+        else if (name === 'GALI') {
+            return '11:45PM'
+        }
+        else if (name === 'DESAWAR') {
+            return '04:00AM'
+        }
+    };
+
+    const lastTime = getLastTime(waPostName1);
+    const timeNotice = `🔹[[ ${postNineName} ]]🔹
+
+लास्ट टाइम:- ${lastTime}
+
+
+जल्दी जल्दी गेम भेजो भाइयों।
+
+👉 मार्केट में नंबर 1 खाईवाल
+👉 बिंदास होकर गेम प्ले करें
+
+सबसे फास्ट रिजल्ट यहां देखें।
+https://vip-satta-result.in
+https://vip-satta-result.in`
+
+    document.getElementById('timeNotice').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(timeNotice);
+    navigator.vibrate(100);
+    });
+
+    const fzNote = `*राम राम भाइयों,*
+
+
+*👉 फिरोजाबाद 👈*
+
+*लास्ट टाइम= [07:45PM]*
+
+*रिजल्ट टाइम= [08:00PM]*
+
+
+1 नंबर गेम है भाईयो इस गेम का रेट
+भी अच्छा है और बहुत टाइम से चल
+भी रहा अब अपने भाई के पास भी
+बिंदास प्ले करो।
+
+*रेट:-*
+  जोड़ी ₹10 = ~₹950~ ₹1000
+  हरूप ₹100 = ~₹950~ ₹1000
+
+_*सबसे फास्ट रिजल्ट यहां देखें।*_
+👇👇👇👇👇👇👇👇👇
+*https://vip-satta-result.in*
+*https://vip-satta-result.in*`
+
+    document.getElementById('fzNote').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(fzNote);
+    navigator.vibrate(100);
+    });
+
+    const lbNote = `*राम राम भाइयों,*
+
+
+*👉 लक्ष्मी बाजार 👈*
+
+*लास्ट टाइम= [09:45PM]*
+
+*रिजल्ट टाइम= [10:15PM]*
+
+
+1 नंबर गेम है भाईयो इस गेम का रेट
+भी अच्छा है और बहुत टाइम से चल
+भी रहा अब अपने भाई के पास भी
+बिंदास प्ले करो।
+
+*रेट:-*
+  जोड़ी ₹10 = ~₹950~ ₹1000
+  हरूप ₹100 = ~₹950~ ₹1000
+
+_*सबसे फास्ट रिजल्ट यहां देखें।*_
+👇👇👇👇👇👇👇👇👇
+*https://vip-satta-result.in*
+*https://vip-satta-result.in*`
+
+    document.getElementById('lbNote').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(lbNote);
+    navigator.vibrate(100);
+    });
+
+    const rulesList = `*🔜 NOTE*
+
+*❍ जिस जोड़ी पर इंटू नहीं लिखा होगा वह 10 इंटू ओके मानी जाएगी।*
+
+*❍ जिस हरुप पर इंटू नहीं लिखा होगा वह 100 इंटू ओके माना जाएगा।*
+
+*❍ जिस हरूप पर साइड नहीं लिखा होगा वह ओन्ली बाहर साइड ओके माना जाएगा।*
+
+*❍ बिना ओके के कोई गेम ओके नहीं मानी जाएगी सिर्फ ओके गेम का हिसाब होगा।*
+
+*❍ जिस गेम के टाइम पर गेम आएगी उस गेम में ही ओके मानी जाएगी चाहे फोल्डर पर कुछ भी लिखा हो।*
+
+*❍ टोटल गलत लिखा होने पर या भुगतान पूरा न होने पर कोई पेमेंट नहीं दी जाएगी और ना ही कोई रिफंड मिलेगा।*
+*⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒⇒*
+*सभी भाई नियम पढ़ लेना एक बार।*
+
+*⭕NLINE 🇰‌HAIWAL*`
+
+    document.getElementById('rulesList').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(rulesList);
+    navigator.vibrate(100);
+    });
+
+    const websiteLink = `सभी गेम का रिजल्ट देखने के लिए
+यहां क्लिक करें....   
+
+👇👇👇👇👇👇
+
+https://vip-satta-result.in
+https://vip-satta-result.in
+https://vip-satta-result.in
+
+✔️✔️✔️✔️✔️✔️✔️✔️✔️✔️`
+
+    document.getElementById('websiteLink').addEventListener('click', ()=> {
+    navigator.clipboard.writeText(websiteLink);
+    navigator.vibrate(100);
+    });
+
+    document.getElementById('resultOneShare').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Live Result',
+      text: copyResult,
+    })
+    });
+    document.getElementById('resultTwoShare').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Today Results',
+      text: todayResult.textContent,
+    })
+    });
+
+    const firstChart = document.getElementById('monthly-chart-first').innerText;
+    const secondChart = document.getElementById('monthly-chart-second').innerText;
+    document.getElementById('shareChartOne').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Record Chart',
+      text: firstChart,
+    })
+    });
+    document.getElementById('shareChartTwo').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Record Chart',
+      text: secondChart,
+    })
+    });
+
+    document.getElementById('shareNoteOne').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: gamesSchedule,
+    })
+  });
+    document.getElementById('shareNoteTwo').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: timeNotice,
+    });
+  });
+    document.getElementById('shareNoteThree').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: fzNote,
+    });
+  });
+    document.getElementById('shareNoteFour').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: lbNote,
+    });
+  });
+    document.getElementById('shareNoteFive').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: rulesList,
+    });
+  });
+    document.getElementById('shareNoteSix').addEventListener('click', ()=> {
+    navigator.share({
+      title: 'Note',
+      text: websiteLink,
+    });
+});
+
+    {% endif %}
+        document.getElementById('refreshIcon').addEventListener('click', ()=> {
+    document.getElementById('refreshIcon').style.transform = 'rotate(360deg)';
+    location.reload();
+        
+    });
+{% endblock %}
+  

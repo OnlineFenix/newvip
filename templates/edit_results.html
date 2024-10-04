@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Results
+{% endblock %}
+
+{% block content %}
+{% if user.is_superuser %}
+<div style="background-color: #fff; padding: 20px; color: #000; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 15px;">
+  <h1 style="text-align: center; color: #000; font-family: serif;">Edit Result</h1>
+    
+    <p style="text-align: center; font-size: 12px; color: #337ab7;">
+        Use the form below to edit your result details. Fill in the required fields and submit your changes.
+    </p>
+{% for result in checked_result %}
+    <form method="POST" style="max-width: 500px; margin: 0 auto; background-color: #fff; padding: 40px 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border: 0.5px solid #000;">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="neem" style="display: block; font-weight: bold; margin-bottom: 5px;">Game Name:</label>
+            <input type="text" id="game_name" name="game_name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" readonly value="{{ result.game_name }}">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label for="number" style="display: block; font-weight: bold; margin-bottom: 5px;">Result:</label>
+            <input type="text" id="result" name="result" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required value="{{ result.result }}">
+        </div>
+        
+        <button type="submit" style="background-color: #fff; color: green; border: none; padding: 10px 20px; border-radius: 4px; font-size: 16px; cursor: pointer; border: 0.5px solid green; font-weight: 300;">UPDATE</button>
+       <a href="{% url 'coadmin' %}" style="background-color: #fff; color: #337ab7; border: none; padding: 10px 20px; border-radius: 4px; font-size: 16px; cursor: pointer; border: 0.5px solid #337ab7; font-weight: 300;">BACK</a>
+    </form>
+{% endfor %}
+</div>
+
+{% endif %}
+{% endblock %}
